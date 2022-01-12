@@ -129,9 +129,6 @@ dmypy.json
 .pyre/
 
 .idea
-<<<<<<< HEAD
 *.csv
 .DS_Store
-=======
-*.csv
->>>>>>> 734986b93a9246f05fb1b15f98977242f436de04
+
