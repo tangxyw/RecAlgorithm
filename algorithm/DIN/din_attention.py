@@ -34,7 +34,8 @@ def din_attention(query, keys, keys_length, is_softmax=False):
         output_weight = output_weight / (embedding_dim ** 0.5)  # (B, T, 1)
         output_weight = tf.nn.softmax(output_weight, axis=1)  # (B, T, 1)
     else:  # 按论文原文, 不使用softmax激活
-        output_weight = tf.cast(keys_mask, tf.float32)  # (B, T, 1)
+        keys_mask = tf.cast(keys_mask, tf.float32)  # (B, T, 1)
+        output_weight = output_weight * keys_mask   # (B, T, 1)
 
     outputs = tf.matmul(output_weight, keys, transpose_a=True)  # (B, 1, T) * (B, T, H) = (B, 1, H)
     outputs = tf.squeeze(outputs, 1)    # (B, H)
@@ -48,7 +49,7 @@ if __name__ == "__main__":
     # fake_keys = tf.zeros(shape=(2, 3, 4))
     fake_keys = tf.random_normal(shape=(2, 3, 4))
     fake_query = tf.random_normal(shape=(2, 4))
-    fake_keys_length = tf.constant([0, 1], 3)
+    fake_keys_length = tf.constant([0, 1])
     attention_out1 = din_attention(fake_query, fake_keys, fake_keys_length, is_softmax=False)
     attention_out2 = din_attention(fake_query, fake_keys, fake_keys_length, is_softmax=True)
 
