@@ -39,6 +39,7 @@ flags.DEFINE_boolean("batch_norm", True, "Perform batch normalization (True or F
 flags.DEFINE_float("dropout_rate", 0.1, "Dropout rate")
 flags.DEFINE_integer("output_dimension", 1024, "Output dimension of linear part and product part")
 flags.DEFINE_string("product_method", "IPNN", "product_method, supported strings are in {'IPNN', 'OPNN'}")
+flags.DEFINE_float("weight_regularizer", 0.0, "linear and product weight variable regularizer")
 
 FLAGS = flags.FLAGS
 
@@ -134,7 +135,7 @@ def pnn_model_fn(features, labels, mode, params):
                                    shape=(len(params["category_feature_columns"]) * FLAGS.embedding_dim,
                                           params["output_dimension"]),
                                    dtype=tf.float32,
-                                   regularizer=tf.contrib.layers.l2_regularizer(scale=0.05))  # (F*K, D)
+                                   regularizer=tf.contrib.layers.l2_regularizer(scale=params["weight_regularizer"]))  # (F*K, D)
         lz = tf.matmul(fields_embeddings, linear_w)  # (batch, D)
 
     with tf.variable_scope("product_part"):
@@ -147,7 +148,7 @@ def pnn_model_fn(features, labels, mode, params):
             inner_product_w = tf.get_variable(name="inner_product_w",
                                               shape=(params["output_dimension"], len(params["category_feature_columns"])),
                                               dtype=tf.float32,
-                                              regularizer=tf.contrib.layers.l2_regularizer(scale=0.05))  # (D, F)
+                                              regularizer=tf.contrib.layers.l2_regularizer(scale=params["weight_regularizer"]))  # (D, F)
             for i in range(params["output_dimension"]):  # 遍历每一个theta, 生成lp的每一个分量
                 theta = tf.expand_dims(inner_product_w[i], axis=1)  # (F, 1)
                 # delta定义见论文
@@ -160,10 +161,10 @@ def pnn_model_fn(features, labels, mode, params):
             outer_product_w = tf.get_variable(name="outer_product_w",
                                               shape=(params["output_dimension"], FLAGS.embedding_dim, FLAGS.embedding_dim),
                                               dtype=tf.float32,
-                                              regularizer=tf.contrib.layers.l2_regularizer(scale=0.05))  # (D, K, K)
+                                              regularizer=tf.contrib.layers.l2_regularizer(scale=params["weight_regularizer"]))  # (D, K, K)
             fields_embeddings_sum = tf.reduce_sum(fields_embeddings, axis=1)    # (batch, K)
             p = tf.matmul(tf.expand_dims(fields_embeddings_sum, axis=2), tf.expand_dims(fields_embeddings_sum, axis=1))  # (batch, K, 1) *  (batch, 1, K) = (batch, K, K)
-            for i in range(params["output_dimension"]): # 遍历每一个w, 生成lp的每一个分量
+            for i in range(params["output_dimension"]):  # 遍历每一个w, 生成lp的每一个分量
                 wi = outer_product_w[i]  # (K, K), 只用上三角的元素, 构造成对称矩阵, 其余参数冗余, 待优化
                 upper = tf.matrix_band_part(wi, 0, -1)
                 wi = upper + tf.transpose(upper) - tf.matrix_band_part(wi, 0, 0)    # (K, K), 上三角+下三角-对角
@@ -205,6 +206,9 @@ def pnn_model_fn(features, labels, mode, params):
 
     y = labels["read_comment"]
     loss = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(labels=y, logits=logit), name="loss")
+    reg_variables = tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
+    if len(reg_variables) > 0:
+        loss += tf.add_n(reg_variables)
 
     accuracy = tf.metrics.accuracy(labels=y, predictions=tf.to_float(tf.greater_equal(prediction, 0.5)))
     auc = tf.metrics.auc(labels=y, predictions=prediction)
@@ -261,6 +265,7 @@ def main(unused_argv):
             "learning_rate": FLAGS.learning_rate,
             "output_dimension": FLAGS.output_dimension,
             "product_method": FLAGS.product_method,
+            "weight_regularizer": FLAGS.weight_regularizer
         }
     print(params)
 
