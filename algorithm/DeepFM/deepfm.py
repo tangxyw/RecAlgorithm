@@ -178,7 +178,7 @@ def deepfm_model_fn(features, labels, mode, params):
     # fm一阶部分
     with tf.variable_scope("fm_first_order"):
         fm_first_order_input = fc.input_layer(features, params["first_order_feature_columns"])
-        fm_first_order_logit = tf.layers.dense(fm_first_order_input, 1, name="fm_first_order_dense")  # [batch, 1]
+        fm_first_order_logit = tf.layers.dense(fm_first_order_input, 1, name="fm_first_order_dense")  # (batch, 1)
 
     # 将每个类别特征的embedding取出
     fields_embeddings = []
@@ -191,13 +191,13 @@ def deepfm_model_fn(features, labels, mode, params):
     # fm二阶部分
     with tf.variable_scope('fm_second_order'):
         # 先加再element-wise平方, 对应FM化简公式的第一项被减数
-        sum_embedding_then_square = tf.square(tf.add_n(fields_embeddings))  # [batch, K]
+        sum_embedding_then_square = tf.square(tf.add_n(fields_embeddings))  # (batch, K)
         # 先element-wise平方再加, 对应FM化简公式的第二项减数
-        square_embedding_then_sum = tf.add_n(fields_squared_embeddings)  # [batch, K]
+        square_embedding_then_sum = tf.add_n(fields_squared_embeddings)  # (batch, K)
 
         fm_second_order_logit = tf.reduce_sum(0.5 * (sum_embedding_then_square - square_embedding_then_sum),
                                               axis=1,
-                                              keepdims=True)  # [batch, 1]
+                                              keepdims=True)  # (batch, 1)
 
     # deep部分
     with tf.variable_scope('fm_deep'):
@@ -209,9 +209,9 @@ def deepfm_model_fn(features, labels, mode, params):
                 net = tf.layers.dropout(net, params["dropout_rate"], training=(mode == tf.estimator.ModeKeys.TRAIN))
             if params["batch_norm"]:
                 net = tf.layers.batch_normalization(net, training=(mode == tf.estimator.ModeKeys.TRAIN))
-        deep_logit = tf.layers.dense(net, 1)  # [batch, 1]
+        deep_logit = tf.layers.dense(net, 1)  # (batch, 1)
 
-    total_logit = tf.add_n([fm_first_order_logit, fm_second_order_logit, deep_logit])  # [batch, 1]
+    total_logit = tf.add_n([fm_first_order_logit, fm_second_order_logit, deep_logit])  # (batch, 1)
 
     # -----定义PREDICT阶段行为-----
     prediction = tf.sigmoid(total_logit, name="prediction")

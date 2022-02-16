@@ -18,7 +18,6 @@ flags = tf.app.flags
 # 训练参数
 flags.DEFINE_string("model_dir", "./model_dir", "Directory where model parameters, graph, etc are saved")
 flags.DEFINE_string("output_dir", "./output_dir", "Directory where pb file are saved")
-
 flags.DEFINE_string("train_data", "../../dataset/wechat_algo_data1/tfrecord/train.tfrecord", "Path to the train data")
 flags.DEFINE_string("eval_data", "../../dataset/wechat_algo_data1/tfrecord/test.tfrecord",
                     "Path to the evaluation data")
@@ -39,7 +38,7 @@ flags.DEFINE_string("hidden_units", "512,256,128",
 flags.DEFINE_boolean("batch_norm", True, "Perform batch normalization (True or False)")
 flags.DEFINE_float("dropout_rate", 0.1, "Dropout rate")
 flags.DEFINE_integer("output_dimension", 1024, "Output dimension of linear part and product part")
-flags.DEFINE_string("product_method", "OPNN", "product_method, supported strings are in {'IPNN', 'OPNN'}")
+flags.DEFINE_string("product_method", "IPNN", "product_method, supported strings are in {'IPNN', 'OPNN'}")
 
 FLAGS = flags.FLAGS
 
