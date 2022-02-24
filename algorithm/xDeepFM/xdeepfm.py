@@ -182,13 +182,13 @@ def xdeepfm_model_fn(features, labels, mode, params):
         dnn_logit = tf.layers.dense(dnn_vec, 1, activation=None, use_bias=False)  # (batch, 1)
 
     # 合并
-    totol_logit = linear_logit + cin_logit + dnn_logit
+    total_logit = linear_logit + cin_logit + dnn_logit
 
     # -----定义PREDICT阶段行为-----
-    prediction = tf.sigmoid(totol_logit, name="prediction")
+    prediction = tf.sigmoid(total_logit, name="prediction")
     if mode == tf.estimator.ModeKeys.PREDICT:
         predictions = {
-            "logit": totol_logit,
+            "logit": total_logit,
             'probabilities': prediction,
         }
         saved_model_output = {
@@ -201,7 +201,7 @@ def xdeepfm_model_fn(features, labels, mode, params):
     # -----定义完毕-----
 
     y = labels["read_comment"]
-    loss = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(labels=y, logits=totol_logit), name="loss")
+    loss = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(labels=y, logits=total_logit), name="loss")
 
     accuracy = tf.metrics.accuracy(labels=y, predictions=tf.to_float(tf.greater_equal(prediction, 0.5)))
     auc = tf.metrics.auc(labels=y, predictions=prediction)
