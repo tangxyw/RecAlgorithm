@@ -44,3 +44,22 @@ def eval_input_fn(filepath, example_parser, batch_size):
     dataset = dataset.prefetch(1)
 
     return dataset
+
+
+def to_sparse_tensor(one_hot_tensor):
+    """
+        将one-hot/multi-hot输入转化成稀疏张量, 作为tf.nn.safe_embedding_lookup_sparse的输入
+    Args:
+        one_hot_tensor (tensor): one-hot/multi-hot输入
+
+    Returns:
+        tf.SparseTensor
+    """
+    one_hot_indices = tf.where(tf.not_equal(one_hot_tensor, 0))
+    one_hot_values = one_hot_indices[:, 1]
+
+    return tf.SparseTensor(
+        indices=one_hot_indices,
+        values=one_hot_values,
+        dense_shape=one_hot_tensor.get_shape())
+
