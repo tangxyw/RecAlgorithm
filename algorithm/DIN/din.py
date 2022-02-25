@@ -185,7 +185,7 @@ def eval_input_fn(filepath, example_parser, batch_size):
 
 def din_model_fn(features, labels, mode, params):
     """
-        deepfm模型的model_fn
+        din模型的model_fn
     Args:
         features (dict): input_fn的第一个返回值, 模型输入样本特征
         labels (dict): input_fn的第二个返回值, 样本标签
