@@ -61,5 +61,5 @@ def to_sparse_tensor(one_hot_tensor):
     return tf.SparseTensor(
         indices=one_hot_indices,
         values=one_hot_values,
-        dense_shape=one_hot_tensor.get_shape())
+        dense_shape=tf.shape(one_hot_tensor, out_type=tf.int64))
 
