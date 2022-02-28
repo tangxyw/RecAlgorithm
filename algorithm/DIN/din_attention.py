@@ -30,7 +30,7 @@ def din_attention(query, keys, keys_length, is_softmax=False):
     if is_softmax:
         paddings = tf.ones_like(output_weight) * (-2 ** 32 + 1)  # (B, T, 1)
         output_weight = tf.where(keys_mask, output_weight, paddings)  # (B, T, 1)
-        # scale, 防止梯度消失
+        # scale, 防止梯度消失, 方差对齐
         output_weight = output_weight / (embedding_dim ** 0.5)  # (B, T, 1)
         output_weight = tf.nn.softmax(output_weight, axis=1)  # (B, T, 1)
     else:  # 按论文原文, 不使用softmax激活
