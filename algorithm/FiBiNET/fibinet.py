@@ -164,8 +164,8 @@ def fibinet_model_fn(features, labels, mode, params):
 
     # 线性部分
     with tf.variable_scope("linear_part"):
-        linear_vec = tf.concat([dense_input, category_input], axis=-1)
-        linear_logit = tf.layers.dense(linear_vec, 1, activation=None, use_bias=True)  # (batch, 1)
+        # linear_vec = tf.concat([dense_input, category_input], axis=-1)
+        linear_logit = tf.layers.dense(dense_input, 1, activation=None, use_bias=True)  # (batch, 1)
 
     # senet
     with tf.variable_scope("senet_part"):
@@ -264,6 +264,8 @@ def main(unused_argv):
         "category_feature_columns": category_feature_columns,
         "dense_feature_columns": dense_feature_columns,
         "hidden_units": FLAGS.hidden_units.split(','),
+        "dropout_rate": FLAGS.dropout_rate,
+        "batch_norm": FLAGS.batch_norm,
         "learning_rate": FLAGS.learning_rate,
         "embedding_dim": FLAGS.embedding_dim,
         "reduction_ratio": FLAGS.reduction_ratio,

@@ -16,6 +16,7 @@ def senet(input, embedding_dim, reduction_ratio):
     # 维度信息
     F = input.get_shape()[1]
     reduction_dim = embedding_dim // reduction_ratio
+    assert reduction_dim < embedding_dim, "reduction_dim must be less than embedding_dim"
 
     # 定义模型参数
     w1 = tf.get_variable(name="senet_w1", shape=(F, reduction_dim), dtype=tf.float32)

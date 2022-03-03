@@ -16,7 +16,7 @@ def bilinear_interaction_layer(input, embedding_dim, type, name):
     """
 
     # 维度信息
-    F = input.get_shape(input)[1]
+    F = input.get_shape()[1]
 
     if type == "all":
         w = tf.get_variable(name=f"{name}_w_all", shape=(embedding_dim, embedding_dim), dtype=tf.float32)   # (K, K)
