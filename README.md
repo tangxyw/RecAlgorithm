@@ -5,8 +5,9 @@
 
 ### 项目简介
 
+- 实现推荐系统中主要使用的Rank算法，并使用公开数据集评测，所有算法均已跑通并完成完整的训练，最终生成`saved_model`和`checkpoint`供`tf-serving`部署；
 * 使用[微信视频号推荐算法比赛](https://algo.weixin.qq.com/problem-description)数据集，数据详情请见 [./dataset/README.md](./dataset/README.md)；
-* 为了贴合工业界使用情况，选用`TensorFlow Estimator`框架，数据format为`Tfrecord`；
+* 为了贴合工业界使用情况，使用`TensorFlow Estimator`框架，数据format为`Tfrecord`；
 * 算法实现在`./algrithm`下，每个算法单独一个文件夹，名字为普遍接受的大写算法名称，训练入口为文件夹下对应的小写算法名称py文件，如DIN文件夹下的`din.py`文件为训练DIN模型的入口，具体请见末尾的示例部分；
 * 每个算法都实现了自己的`model_fn`，没有使用`Keras`高阶API，只使用`TensorFlow`的中低阶API构造静态图；
 * 算法超参数可由`--parameter_name=parameter_value`方式传入训练入口脚本，超参数定义请见训练入口脚本`tf.app.FLAG`部分；
@@ -56,4 +57,3 @@ python din.py --use_softmax=True
 ## 联系方式
 
 <img src="./docs/Wechat.jpeg" alt="pic" width="220" height="220">
-
