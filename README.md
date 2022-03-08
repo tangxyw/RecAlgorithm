@@ -55,5 +55,5 @@ python din.py --use_softmax=True
 
 ## 联系方式
 
-<img src="/Users/tangmengjie/RecAlgorithm/docs/Wechat.jpeg" alt="pic" width="220" height="220">
+<img src="./docs/Wechat.jpeg" alt="pic" width="220" height="220">
 
