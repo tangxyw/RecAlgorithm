@@ -55,4 +55,4 @@ python din.py --use_softmax=True
 
 ## 联系方式
 
-![wechat](./docs/wechat.jpeg)
+![wechat](./docs/Wechat.jpeg)
