@@ -56,3 +56,6 @@ python din.py --use_softmax=True
 ## 联系方式
 
 ![wechat](./docs/Wechat.jpeg)
+
+<img src="./docs/Wechat.jpeg" alt="pic" width="142" height="142">
+
