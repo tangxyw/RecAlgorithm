@@ -54,6 +54,6 @@ cd ./DIN
 python din.py --use_softmax=True 
 ```
 
-## 联系方式
+## 欢迎提issue，或直接勾搭
 
 <img src="./docs/Wechat.jpeg" alt="pic" width="220" height="220">
