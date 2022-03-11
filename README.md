@@ -10,7 +10,7 @@
 * 为了贴合工业界使用情况，使用`TensorFlow Estimator`框架，数据format为`Tfrecord`；
 * 算法实现在`./algrithm`下，每个算法单独一个文件夹，名字为普遍接受的大写算法名称，训练入口为文件夹下对应的小写算法名称py文件，如DIN文件夹下的`din.py`文件为训练DIN模型的入口，具体请见末尾的示例部分；
 * 每个算法都实现了自己的`model_fn`，没有使用`Keras`高阶API，只使用`TensorFlow`的中低阶API构造静态图；
-* 算法超参数可由`--parameter_name=parameter_value`方式传入训练入口脚本，超参数定义请见训练入口脚本`tf.app.FLAG`部分；
+* 算法超参数可由`--parameter_name=parameter_value`方式传入训练入口脚本，超参数定义请见训练入口脚本`tf.app.flags`部分；
 * 单任务模型使用数据集因变量中的`read_comemnt`评测，多任务模型使用`read_commet` `like` `click_avatar`三个任务评测；
 
 ### 单任务Models列表
