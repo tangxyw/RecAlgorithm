@@ -63,3 +63,20 @@ def to_sparse_tensor(one_hot_tensor):
         values=one_hot_values,
         dense_shape=tf.shape(one_hot_tensor, out_type=tf.int64))
 
+
+def index_from_upper_triangular(i, j, n):
+    """
+        将n阶上三角矩阵(i, j)位置的索引, 映射到打平后长度为n*(n-1)//2的数组的索引
+    Args:
+        i (int): n阶上三角矩阵中元素的行索引
+        j (int): n阶上三角矩阵中元素的列索引
+        n (int): 上三角矩阵阶数
+
+    Returns:
+        数组索引
+    """
+    index = 0
+    for k in range(i):
+        index += n - 1 - k
+    index += j - i - 1
+    return index
