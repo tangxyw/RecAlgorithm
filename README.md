@@ -25,6 +25,7 @@
 | DCN          | [2017] [Deep & Cross Network for Ad Click Predictions](https://arxiv.org/abs/1708.05123)                                                                   | 0.9183242              |
 | AFM          | [2017] [Attentional Factorization Machines: Learning the Weight of Feature Interactions via Attention Networks](http://www.ijcai.org/proceedings/2017/435) | 0.9117872              |
 | xDeepFM      | [2018] [xDeepFM: Combining Explicit and Implicit Feature Interactions for Recommender Systems](https://arxiv.org/pdf/1803.05170.pdf)                       | 0.9152467              |
+| FwFM         | [2018] [Field-weighted Factorization Machines for Click-Through Rate Prediction in Display Advertising](https://arxiv.org/pdf/1806.03514.pdf)              | 0.9088295              |
 | DIN          | [2018] [Deep Interest Network for Click-Through Rate Prediction](https://arxiv.org/pdf/1706.06978.pdf)                                                     | 0.9116896              |
 | FiBiNet      | [2019] [FiBiNET: Combining Feature Importance and Bilinear feature Interaction for Click-Through Rate Prediction](https://arxiv.org/pdf/1905.09433.pdf)    | 0.9149044              |
 | BST          | [2019] [Behavior sequence transformer for e-commerce recommendation in Alibaba](https://arxiv.org/pdf/1905.06874.pdf)                                      | 0.9165866              |
