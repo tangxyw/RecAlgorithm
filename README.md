@@ -25,12 +25,14 @@
 | DCN          | [2017] [Deep & Cross Network for Ad Click Predictions](https://arxiv.org/abs/1708.05123)                                                                   | 0.9183242              |
 | AFM          | [2017] [Attentional Factorization Machines: Learning the Weight of Feature Interactions via Attention Networks](http://www.ijcai.org/proceedings/2017/435) | 0.9117872              |
 | xDeepFM      | [2018] [xDeepFM: Combining Explicit and Implicit Feature Interactions for Recommender Systems](https://arxiv.org/pdf/1803.05170.pdf)                       | 0.9152467              |
-| FwFM         | [2018] [Field-weighted Factorization Machines for Click-Through Rate Prediction in Display Advertising](https://arxiv.org/pdf/1806.03514.pdf)              | 0.9118794            |
+| FwFM         | [2018] [Field-weighted Factorization Machines for Click-Through Rate Prediction in Display Advertising](https://arxiv.org/pdf/1806.03514.pdf)              | 0.9118794              |
 | DIN          | [2018] [Deep Interest Network for Click-Through Rate Prediction](https://arxiv.org/pdf/1706.06978.pdf)                                                     | 0.9116896              |
+| DIEN         | [2018] [Deep Interest Evolution Network for Click-Through Rate Prediction](https://arxiv.org/pdf/1809.03672.pdf)                                                     | -                      |
 | FiBiNet      | [2019] [FiBiNET: Combining Feature Importance and Bilinear feature Interaction for Click-Through Rate Prediction](https://arxiv.org/pdf/1905.09433.pdf)    | 0.9149044              |
 | BST          | [2019] [Behavior sequence transformer for e-commerce recommendation in Alibaba](https://arxiv.org/pdf/1905.06874.pdf)                                      | 0.9165866              |
 
-*Best_read_comment_Auc为每个model各自调参后的测试集最大Auc，每个model各自的评测见每个model路径下的`result.md`
+*Best_read_comment_Auc为每个model各自调参后的测试集最大Auc，每个model各自的评测见每个model路径下的`result.md`。 </br>
+*DIEN不适用于微信视频号数据集，故只实现了静态图，并没有评测。
 
 ### 多任务Models列表
 
@@ -40,8 +42,7 @@
 | MMOE  | [2018] [Modeling Task Relationships in Multi-task Learning with Multi-gate Mixture-of-Experts](https://dl.acm.org/doi/abs/10.1145/3219819.3220007)                      | 0.91860557            | 0.8126400      | 0.8139362              |
 | PLE   | [2020] [Progressive Layered Extraction (PLE): A Novel Multi-Task Learning (MTL) Model for Personalized Recommendations](https://dl.acm.org/doi/10.1145/3383313.3412236) | 0.91965175            | 0.8136461      | 0.8154559              |
 
-*Best_xx_AUC为所有超参数组合中的最高值，横向的三个AUC可能不在同一组超参数中。
-
+*Best_xx_AUC为所有超参数组合中的最高值，横向的三个AUC可能不在同一组超参数中。</br>
 *由于ESMM的结构特殊性，不适用于微信视频号数据集，故只实现了静态图，并没有评测。
 
 ### 示例
