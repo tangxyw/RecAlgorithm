@@ -58,7 +58,7 @@ python din.py --use_softmax=True
 
 ### To Do List
 * 增加多任务学习Trick: Uncertainty, GradNorm, PCGrad, etc.
-* 增加AutoInt, FLEN, DIEN, etc
+* 增加AutoInt, FLEN, etc.
 * 重构特征工程部分, 包括配置化输入等, 参考https://github.com/Shicoder/Deep_Rec
 
 ## 欢迎提issue，或直接勾搭
