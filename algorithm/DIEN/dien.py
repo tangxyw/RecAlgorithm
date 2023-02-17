@@ -257,6 +257,7 @@ def dien_model_fn(features, labels, mode, params):
     # 需要用到历史行为序列的负采样序列, shape=(B, (T-1)*T_neg, H)
     # 要保证每个batch内min(T) >= 2, 一般batch大小为1024的话，不会有问题; todo：以防万一还是要考虑这一点
     # P.S: 数据原因, 以下代码无法运行, 仅做参考, 若有问题, 请联系作者.
+    # 可能的原因之一: 经过tf.log后输出变成了-inf或者nan
     if FLAGS.use_auxiliary_loss:
         with tf.variable_scope("neg_seq_input"):
             neg_sequnence_input, _ = tf.contrib.feature_column.sequence_input_layer(features, params["negative_sequence_feature_columns"])  # (B, (T-1)*T_neg, H)
