@@ -3,9 +3,9 @@
 ## wechat_algo_data1
 
 * 微信视频号推荐算法比赛：[Link](https://algo.weixin.qq.com/problem-description)；
-* 原始文件为：`user_action.csv` `feed_info.csv` ，可由大赛页面下载，放置到本目录下；
+* 原始文件为：`user_action.csv` `feed_info.csv` ，~~可由大赛页面下载，~~ 目前大赛页面已经下线，可联系作者索取；
 * `EDA.ipynb`为数据探索结果；
-* `DataGenerator.py`为ETL脚本，生成数据集：训练集3322313条，测试集6069037条，特征工程逻辑请见`DataGenerator.py`头部注释。
+* `DataGenerator.py`为ETL脚本，生成数据集：训练集3322313条，测试集609037条，特征工程逻辑请见`DataGenerator.py`头部注释。
 
 
 
